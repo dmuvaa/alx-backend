@@ -16,7 +16,7 @@ class LRUCache(BaseCaching):
         self.order_keys = []
 
     def put(self, key, item):
-        """functions that inserts items into the cache with FIFO strategy"""
+        """functions that inserts items into the cache with LRU strategy"""
         if key is None or item is None:
             return
 
@@ -36,4 +36,9 @@ class LRUCache(BaseCaching):
 
         if key is None:
             return None
-        return self.cache_data.get(key, None)
+        
+        if key in self.cache_data:
+            self.order_keys.remove(key)
+            self.order_keys.append(key)
+            return self.cache_data[key]
+        return None
