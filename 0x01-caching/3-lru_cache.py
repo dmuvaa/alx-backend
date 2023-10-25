@@ -36,7 +36,7 @@ class LRUCache(BaseCaching):
 
         if key is None:
             return None
-        
+
         if key in self.cache_data:
             self.order_keys.remove(key)
             self.order_keys.append(key)
