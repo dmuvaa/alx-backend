@@ -17,21 +17,24 @@ class LFUCache(BaseCaching):
         self.uses = {}
 
     def put(self, key, item):
-        """Assign to the dictionary self.cache_data the item value for the key key"""
+        """Assign to the dictionary self.cache_data the item value"""
         if key is None or item is None:
             return
 
         if key not in self.cache_data:
             if len(self.cache_data) >= self.MAX_ITEMS:
-                least_used_key = min(self.keys, key=lambda k: (self.uses[k], self.keys.index(k)))
+                least_used_key = min(
+                        self.keys,
+                        key=lambda k: (self.uses[k], self.keys.index(k))
+                )
                 self.cache_data.pop(least_used_key)
                 self.keys.remove(least_used_key)
                 self.uses.pop(least_used_key)
                 print("DISCARD:", least_used_key)
-        
+
         else:
             self.keys.remove(key)
-        
+
         self.cache_data[key] = item
         self.keys.append(key)
         self.uses[key] = self.uses.get(key, 0) + 1
