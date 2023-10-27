@@ -40,19 +40,22 @@ class Server:
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
-        """Get hypermedia pagination data in the context of deletion-resilient."""
-        assert isinstance(index, int) and index >= 0 and index < len(self.__indexed_dataset)
+        """Get hypermedia pagination data in the context of del-resilient."""
+        assert isinstance(index, int) and index >= 0 and \
+            index < len(self.__indexed_dataset)
 
         data_page = []
         next_index = index
         current_items = 0
 
-        while current_items < page_size and next_index in self.__indexed_dataset:
+        while current_items < page_size \
+                and next_index in self.__indexed_dataset:
             data_page.append(self.__indexed_dataset[next_index])
             current_items += 1
             next_index += 1
 
-        while next_index not in self.__indexed_dataset and next_index < len(self.__indexed_dataset):
+        while next_index not in self.__indexed_dataset \
+                and next_index < len(self.__indexed_dataset):
             next_index += 1
 
         if next_index >= len(self.__indexed_dataset):
