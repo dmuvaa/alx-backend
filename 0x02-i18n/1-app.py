@@ -8,6 +8,7 @@ from flask_babel import Babel
 app = Flask(__name__)
 babel = Babel(app)
 
+
 class Config:
     """babel config class"""
     LANGUAGES = ["en", "fr"]
@@ -22,6 +23,7 @@ app.config.from_object(Config)
 def index():
     """create a python app"""
     return render_template('1-index.html')
+
 
 if __name__ == '__main__':
     """main"""
